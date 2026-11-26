@@ -1,0 +1,6 @@
+node_modules/
+dist/
+data/candidates/
+data/geo/ne50-countries.geojson
+data/*.log
+.claude/

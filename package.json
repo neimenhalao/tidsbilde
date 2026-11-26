@@ -1,0 +1,14 @@
+{
+  "name": "tidsbilde",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "map": "node tools/build-map.mjs",
+    "images": "node tools/fetch-images.mjs",
+    "schedule": "node tools/schedule.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.1"
+  }
+}

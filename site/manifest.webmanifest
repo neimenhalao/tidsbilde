@@ -1,0 +1,11 @@
+{
+  "name": "Tidsbilde",
+  "short_name": "Tidsbilde",
+  "description": "Gjett år og sted for gamle bilder fra Norge – fem nye hver dag.",
+  "lang": "nb",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f3ede2",
+  "theme_color": "#9a4f22",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }, { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }]
+}
