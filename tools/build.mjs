@@ -239,6 +239,11 @@ await write('404.html', layout({ title: 'Fant ikke siden | Tidsbilde', descripti
 await write('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(([u, f]) => `<url><loc>${BASE}${u}</loc><changefreq>${f}</changefreq></url>`).join('\n')}\n</urlset>\n`);
 await write('robots.txt', NOINDEX ? 'User-agent: *\nDisallow: /\n' : `User-agent: *\nAllow: /\nSitemap: ${BASE}/sitemap.xml\n`);
 await write('.nojekyll', '');
+// sider som er nye i dag (gårsdagens bilder) → IndexNow
+const fresh = published.filter((p) => p.day === todayN - 1);
+const freshUrls = new Set(['/', '/bilder/', '/arkiv/']);
+for (const p of fresh) { freshUrls.add(`/bilde/${p.slug}/`); freshUrls.add(`/sted/${slugify(p.kommune || p.place)}/`); freshUrls.add(`/tiar/${decade(p.year)}/`); }
+await write('indexnow.json', JSON.stringify([...freshUrls].map((u) => BASE + u)));
 if (BP) {
   const c = await readFile('dist/js/config.js', 'utf8');
   await writeFile('dist/js/config.js', c.replace("export const BASE = '';", `export const BASE = '${BP}';`));

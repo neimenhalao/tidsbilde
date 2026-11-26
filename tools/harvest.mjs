@@ -1,5 +1,5 @@
-// Samler kandidatbilder fra Wikimedia Commons: «Category:{år} in Norway» og underkategorier.
-// Bruk: node tools/harvest.mjs 1860 2005  → data/candidates/{år}.json
+﻿// Samler kandidatbilder fra Wikimedia Commons: Â«Category:{Ã¥r} in NorwayÂ» og underkategorier.
+// Bruk: node tools/harvest.mjs 1860 2005  â†’ data/candidates/{Ã¥r}.json
 import { mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 
@@ -9,7 +9,7 @@ const OUT = path.resolve('data/candidates');
 const [fromY = 1860, toY = 2005] = process.argv.slice(2).map(Number);
 const OK_LICENSE = /(public domain|pdm|cc0|^cc by(-sa)? [0-9.]+|^cc by(-sa)?$|no restrictions|attribution)/i;
 const BAD_LICENSE = /(nc|nd)\b|non-?commercial|noderiv/i;
-const SKIP_TITLE = /(\.pdf|\.tif|map|kart over|logo|coat of arms|våpen|signature|stamp|frimerke|poster|plakat|painting|maleri|drawing|tegning|document|dokument|newspaper|avis|svg)/i;
+const SKIP_TITLE = /(\.pdf|\.tif|map|kart over|logo|coat of arms|vÃ¥pen|signature|stamp|frimerke|poster|plakat|painting|maleri|drawing|tegning|document|dokument|newspaper|avis|svg)/i;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function api(params) {
@@ -22,7 +22,7 @@ async function api(params) {
         if (!j.error) { await sleep(350); return j; }
       } else if (res.status === 429) {
         const wait = Number(res.headers.get('retry-after')) || 15;
-        console.log(`429 – venter ${wait}s`);
+        console.log(`429 â€“ venter ${wait}s`);
         await sleep(wait * 1000);
         continue;
       }
@@ -74,15 +74,14 @@ async function fileInfo(titles) {
 async function harvestYear(y) {
   const file = path.join(OUT, `${y}.json`);
   try { await access(file); return; } catch {}
-  // Ett søk med deepcat gir filene i kategorien og underkategoriene, med bildeinfo i samme svar.
+  // Ett sÃ¸k med deepcat gir filene i kategorien og underkategoriene, med bildeinfo i samme svar.
   const pages = new Map();
   let cont = {};
   do {
     const j = await api({
       action: 'query', generator: 'search', gsrnamespace: '6', gsrlimit: '50',
-      gsrsearch: `deepcat:"${y} in Norway" filemime:image/jpeg`,
-      prop: 'imageinfo|categories|coordinates', iiprop: 'url|size|mime|extmetadata', iiurlwidth: '1400',
-      cllimit: 'max', clshow: '!hidden',
+      gsrsearch: `deepcat:"${y} in Norway" filemime:image/jpeg "${y}"`,
+      prop: 'imageinfo|coordinates', iiprop: 'url|size|mime|extmetadata', iiurlwidth: '1400',
       iiextmetadatafilter: 'LicenseShortName|Artist|ImageDescription|DateTimeOriginal|ObjectName|Credit',
       ...cont,
     });
@@ -107,6 +106,8 @@ async function harvestYear(y) {
     };
     if (f.width < 900 || f.mime !== 'image/jpeg') continue;
     if (!OK_LICENSE.test(f.license) || BAD_LICENSE.test(f.license)) continue;
+    // Ã¥ret mÃ¥ stÃ¥ i dato-feltet eller i beskrivelsen/tittelen
+    if (!f.date.includes(String(y)) && !(f.description + f.title + f.objectName).includes(String(y))) continue;
     out.push({ year: y, ...f });
   }
   await writeFile(file, JSON.stringify(out, null, 1));
@@ -116,7 +117,7 @@ async function harvestYear(y) {
 await mkdir(OUT, { recursive: true });
 const years = [];
 for (let y = fromY; y <= toY; y++) years.push(y);
-// litt parallellitet, men skånsomt mot API-et
+// litt parallellitet, men skÃ¥nsomt mot API-et
 const workers = 1;
 await Promise.all(Array.from({ length: workers }, async (_, w) => {
   for (let i = w; i < years.length; i += workers) {
