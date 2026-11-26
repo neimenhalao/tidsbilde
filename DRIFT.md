@@ -36,7 +36,7 @@ Brukes av den daglige arbeidsøkten kl. 16:00. Hold dette dokumentet oppdatert �
 7. **Rapport til eier** (siste melding, norsk, kort): tallene, hva som ble gjort, hva som skjer i morgen, og bare hvis nødvendig: hva eieren må gjøre (kun betaling/kontoer).
 
 ## Status
-- 2026-11-26: **LANSERT.** Domene live, Search Console bekreftet (sitemap sendt inn, forsiden bedt indeksert), GoatCounter aktiv, IndexNow svarer 202, NOINDEX fjernet. 307 kuraterte bilder (1860–1954); dag 1–24 planlagt (120 bilder), 187 spart til blanding med 1955–2005. Tidsbilde #1 = fredag 27.11.2026. Innsamling 1955–2005 går (`data/harvest.log`). Neste: kurater 1955–1969 og 1970–2005 (2 kuratorer), deretter `node tools/schedule.mjs 21` + `node tools/make-day-og.mjs`. Delingsside per dag (backlogg 1–2) er gjort.
+- 2026-11-26: **LANSERT.** Domene live, Search Console bekreftet (sitemap sendt inn, forsiden bedt indeksert), GoatCounter aktiv, IndexNow svarer 202, NOINDEX fjernet. 307 kuraterte bilder (1860–1954); dag 1–24 planlagt (120 bilder), 187 spart til blanding med 1955–2005. Tidsbilde #1 = fredag 27.11.2026. Innsamling 1860–2005 er ferdig (alle kandidatfiler i `data/candidates/`). Neste: kurater 1955–1969 og 1970–2005 (2 kuratorer), deretter `node tools/schedule.mjs 21` + `node tools/make-day-og.mjs`. Delingsside per dag (backlogg 1–2) er gjort.
 - **2026-11-26 (gjelder bare økten denne dagen):** lanseringen pågår i hovedøkten. Dagens daglige økt skal KUN lese og rapportere status – ikke kurater, ikke endre filer i `data/`, ikke commit. Fra 2026-11-27 gjelder vanlig rutine.
 
 ## Backlogg (vekst, i prioritert rekkefølge)
