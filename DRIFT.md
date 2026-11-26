@@ -48,3 +48,13 @@ Brukes av den daglige arbeidsøkten kl. 16:00. Hold dette dokumentet oppdatert �
 6. Mediekit + liste over pressekontakter, historielag og institusjoner (til samlet utsendelse når prosjektets e-post finnes).
 7. Be eier om prosjektets e-postkonto og sosiale kontoer når det er 2+ uker med spill ute (samlet forespørsel).
 8. Sponsorplass i resultatet (tom til vi har en sponsor), jf. `KOMMERSIALISERING.md`.
+
+## Produktplan (funksjoner, design, kart) – avklart 2026-11-26
+Prioriter etter målinger (delingsrate, fullføringsrate, mobilandel). Én ting om gangen, testet på mobil.
+- **Kart, trinn 1 (snart):** behold SVG-oversikten (rask, uten tredjepart), men la zoom gå over i detaljert kart når man zoomer inn: MapLibre GL + Kartverkets åpne topografiske kart (CC BY 4.0) eller OpenFreeMap, lastet først ved zoom, dempet sepiastil. Ingen nøkkel, ingen cookies.
+- **Kart, trinn 2 (ved trafikk):** egne vektorfliser for Norge (PMTiles) på Cloudflare R2 for å tåle mange spillere uten å belaste andres tjenester.
+- **Fasit-visning:** animert strek og årsteller, «Se stedet i dag»-lenke (kart/flyfoto), historisk kart fra Kartverket som bakgrunn.
+- **Førstegangsveiledning** (3 trinn) og større tekst/knapper for eldre spillere; universell utforming.
+- **«Du var bedre enn X % i dag»** og **familieliga** (del en lenke, se familiens poeng) – krever liten backend (Cloudflare Worker + D1, gratisnivå) → gjøres sammen med flytting til Cloudflare.
+- **Valgfritt hint** per bilde (fylke, koster poeng), **temauker**, **fritt spill** (senere del av Tidsbilde+).
+- **Design:** mobil med bilde/kart som faner eller bunnark, bildezoom med to fingre, små animasjoner; behold arkiv-/papirpreget.
