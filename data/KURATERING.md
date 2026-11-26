@@ -16,7 +16,7 @@ Alle kandidater har allerede fri lisens (offentlig eie, CC0, CC BY, CC BY-SA). I
 6. **Spillverdi.** Bildet bør ha ledetråder spilleren kan resonnere med: klær, kjøretøy, bygninger, landskap, teknologi, kjente steder. Varier motivene: byliv, bygdeliv, havn og båter, samferdsel, arbeid, fritid, vinter, hendelser.
 
 ## Slik ser du på bildene
-Bruk **PowerShell** til nedlasting (Bash-sandkassen når ikke nettet). Lag en egen mappe i din scratchpad, og last ned små versjoner ved å bytte `1400px-` med `400px-` i `thumb`-URL-en:
+Bruk **PowerShell** til nedlasting (Bash-sandkassen når ikke nettet). Lag en egen mappe i din scratchpad, og last ned små versjoner ved å bytte tallet før `px-` (f.eks. `1400px-` eller `1920px-`) med `500px-` (400px gir HTTP 400) i `thumb`-URL-en:
 ```powershell
 Invoke-WebRequest -Uri $url -OutFile $fil -UseBasicParsing -Headers @{ 'User-Agent' = 'TidsbildeBot/0.2 (https://tidsbilde.no/om/)' }
 ```
