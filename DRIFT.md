@@ -21,7 +21,7 @@ Brukes av den daglige arbeidsøkten kl. 16:00. Hold dette dokumentet oppdatert �
 2. Kuratorer (underagenter) etter `data/KURATERING.md` → `data/curated/<intervall>.json`. Gi dem tydelig årsintervall, mål, fylkesspredning, og at de bare skriver sin egen fil. Maks 2 samtidig (Wikimedia-grense). User-Agent `TidsbildeBot/0.2 (https://tidsbilde.no/om/)`, 500px-miniatyrer.
 3. Kontroller rapporten: ta ut poster med usikkert år (håndkolorerte lysbilder, «ca.», reproduksjoner).
 4. `node tools/fetch-images.mjs` → `data/img/`, `data/photos.json`.
-5. `node tools/schedule.mjs` – legger nye dager **etter** eksisterende. **Publiserte dager endres aldri.**
+5. `node tools/schedule.mjs [maks antall nye dager]` – legger nye dager **etter** eksisterende. **Publiserte dager endres aldri.** Kjør så `node tools/make-day-og.mjs` (forhåndsvisningsbilde per dag). `fetch-images.mjs` kan begrenses til navngitte filer så halvferdige kuratorfiler ikke tas med.
 6. Commit + push → publiseres.
 
 **Buffer:** hold minst 30 dager med ferdige dager foran dagens dato. Under 30 → kurater flere (neste ikke-dekkede år, deretter fyll hull i fylker/motiver).
@@ -36,13 +36,13 @@ Brukes av den daglige arbeidsøkten kl. 16:00. Hold dette dokumentet oppdatert �
 7. **Rapport til eier** (siste melding, norsk, kort): tallene, hva som ble gjort, hva som skjer i morgen, og bare hvis nødvendig: hva eieren må gjøre (kun betaling/kontoer).
 
 ## Status
-- 2026-11-26: domene live, Search Console bekreftet, GoatCounter aktiv. 150 bilder (1860–1928) klare, kuratorer på 1929–1944. Dagsplan og indeksering slås på når 1929–1944 er inne.
+- 2026-11-26: **LANSERT.** Domene live, Search Console bekreftet (sitemap sendt inn, forsiden bedt indeksert), GoatCounter aktiv, IndexNow svarer 202, NOINDEX fjernet. 307 kuraterte bilder (1860–1954); dag 1–24 planlagt (120 bilder), 187 spart til blanding med 1955–2005. Tidsbilde #1 = fredag 27.11.2026. Innsamling 1955–2005 går (`data/harvest.log`). Neste: kurater 1955–1969 og 1970–2005 (2 kuratorer), deretter `node tools/schedule.mjs 21` + `node tools/make-day-og.mjs`. Delingsside per dag (backlogg 1–2) er gjort.
 - **2026-11-26 (gjelder bare økten denne dagen):** lanseringen pågår i hovedøkten. Dagens daglige økt skal KUN lese og rapportere status – ikke kurater, ikke endre filer i `data/`, ikke commit. Fra 2026-11-27 gjelder vanlig rutine.
 
 ## Backlogg (vekst, i prioritert rekkefølge)
-1. Egen delingsside per dag (`/dag/N/`) med eget forhåndsvisningsbilde (collage av dagens bilder, uskarpt) – lenken i delingsteksten peker dit.
-2. «Utfordre en venn»: delingstekst med poengsum + lenke til samme dag.
-3. Kurater 1945–2005 (etterkrigstid, 50-, 60-, 70-tallet – sterk nostalgi for målgruppen).
+1. ~~Delingsside per dag + «Klarer du å slå meg?»~~ (gjort 2026-11-26).
+2. Etter `make-day-og.mjs`: husk at nye dager trenger forhåndsvisningsbilde (kjør etter hver schedule).
+3. Kurater 1955–2005 (etterkrigstid, 50-, 60-, 70-tallet – sterk nostalgi for målgruppen).
 4. Widget «Dagens Tidsbilde» (iframe/script) for historielag, bibliotek og lokalaviser.
 5. Stedssider per fylke («Gamle bilder fra Vestland»), bedre intern lenking, «Dette skjedde i …»-tekst per tiår.
 6. Mediekit + liste over pressekontakter, historielag og institusjoner (til samlet utsendelse når prosjektets e-post finnes).
