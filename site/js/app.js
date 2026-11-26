@@ -10,13 +10,7 @@ const store = {
 };
 const fmt = (n) => n.toLocaleString('nb-NO');
 
-export function osloDate(d = new Date()) {
-  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Oslo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
-}
-export function dayNumber(iso = osloDate()) {
-  const [y, m, d] = iso.split('-').map(Number), [sy, sm, sd] = START.split('-').map(Number);
-  return Math.round((Date.UTC(y, m - 1, d) - Date.UTC(sy, sm - 1, sd)) / 864e5) + 1;
-}
+import { dayNumber } from './dag.js';
 export const yearPoints = (diff) => (diff >= 40 ? 0 : Math.round(5000 * (1 - diff / 40) ** 1.6));
 export const placePoints = (km) => (km <= 5 ? 5000 : Math.round(5000 * Math.exp(-(km - 5) / 250)));
 const yearEmoji = (d) => (d <= 2 ? '🟩' : d <= 8 ? '🟨' : d <= 20 ? '🟧' : '🟥');
@@ -157,7 +151,7 @@ function nextRound() {
 
 function shareText() {
   const sum = total(), max = day.photos.length * 10000;
-  return `Tidsbilde #${dayN} · ${fmt(sum)}/${fmt(max)}\n📅 ${state.guesses.map((g) => yearEmoji(g.diff)).join('')}\n📍 ${state.guesses.map((g) => placeEmoji(g.km)).join('')}\n${SITE}`;
+  return `Tidsbilde #${dayN} · ${fmt(sum)}/${fmt(max)}\n📅 ${state.guesses.map((g) => yearEmoji(g.diff)).join('')}\n📍 ${state.guesses.map((g) => placeEmoji(g.km)).join('')}\nKlarer du å slå meg? ${SITE}/dag/${dayN}`;
 }
 
 function updateStats() {

@@ -104,6 +104,21 @@ for (let n = 1; n <= maxDay; n++) {
   }
 }
 
+// delingssider per dag: /dag/N/ med eget forhåndsvisningsbilde, sender spilleren videre til riktig dag
+await mkdir('dist/og', { recursive: true });
+for (let n = 1; n <= maxDay; n++) {
+  const hasOg = await exists(`data/og/${n}.jpg`);
+  if (hasOg) await copyFile(`data/og/${n}.jpg`, `dist/og/${n}.jpg`);
+  const target = `/?dag=${n}`;
+  await write(`dag/${n}/index.html`, layout({
+    title: `Tidsbilde #${n} – klarer du å slå meg?`,
+    description: 'Fem gamle bilder fra Norge. Gjett årstallet og sett en nål på kartet – gratis, uten innlogging.',
+    canonical: `/dag/${n}/`, noindex: true, image: hasOg ? `/og/${n}.jpg` : null,
+    body: `<main class="tekst"><h1>Tidsbilde #${n}</h1><p class="ingress">Fem gamle bilder fra Norge. Når og hvor ble de tatt?</p><p><a class="knapp hoved" id="spill-dag" href="${target}">Spill Tidsbilde #${n}</a></p></main>
+<script type="module">import { dayNumber } from '${BP}/js/dag.js'; const n = ${n}; location.replace(n >= dayNumber() ? '${BP}/' : '${BP}${target}');</script>`,
+  }));
+}
+
 // forsiden = spillet
 const gameBody = `<main>
 <div class="spillhode"><h1>Tidsbilde <span id="dagnr"></span></h1><span class="dato" id="dato"></span><span class="merke" id="arkivmerke" hidden>Arkiv</span><span class="poeng"><span id="runde"></span> · <b id="poengsum">0</b> poeng</span></div>

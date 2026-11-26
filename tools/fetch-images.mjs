@@ -10,7 +10,9 @@ await mkdir('data/img/t', { recursive: true });
 
 const old = (await exists('data/photos.json')) ? JSON.parse(await readFile('data/photos.json', 'utf8')) : [];
 const known = new Map(old.map((p) => [p.id, p]));
-const files = (await readdir('data/curated')).filter((f) => f.endsWith('.json'));
+// valgfritt: bare navngitte filer, f.eks. `node tools/fetch-images.mjs 1929-1938.json`
+const only = process.argv.slice(2);
+const files = (await readdir('data/curated')).filter((f) => f.endsWith('.json') && (!only.length || only.includes(f)));
 const recs = [];
 for (const f of files) recs.push(...JSON.parse(await readFile(`data/curated/${f}`, 'utf8')));
 for (const r of recs) r.id ||= 'b' + createHash('sha1').update(r.commonsTitle).digest('hex').slice(0, 9);

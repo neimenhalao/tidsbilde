@@ -11,8 +11,11 @@ const hash = (s) => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c
 let pool = photos.filter((p) => !used.has(p.id)).sort((a, b) => (b.quality - a.quality) || (hash(a.id) - hash(b.id)));
 const region = (p) => (p.lat > 66.5 ? 'nord' : p.lat > 62.3 ? 'midt' : p.lon < 7.6 ? 'vest' : p.lon < 9.5 && p.lat < 59.4 ? 'sor' : 'ost');
 
+// valgfritt: maks antall nye dager (resten av bildene spares til de kan blandes med nye tiår)
+const maxNew = Number(process.argv[2]) || Infinity;
+// spre tiårene: bilder fra tiår det er mange av, skal ikke fylle opp de første dagene
 let added = 0;
-while (pool.length >= PER) {
+while (pool.length >= PER && added < maxNew) {
   const day = [];
   for (const strict of [3, 2, 1, 0]) {
     for (const p of pool) {
