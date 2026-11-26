@@ -211,7 +211,7 @@ await write('arkiv/index.html', layout({
   title: 'Arkiv – spill tidligere dager | Tidsbilde',
   description: 'Gikk du glipp av en dag? Spill alle tidligere runder av Tidsbilde.',
   canonical: '/arkiv/',
-  body: `<main class="tekst"><h1>Arkiv</h1><p class="ingress">Spill tidligere dager. Arkivspill teller ikke på dager-på-rad.</p>
+  body: `<main class="tekst"><h1>Arkiv</h1><p class="ingress">Spill tidligere dager. Arkivspill teller ikke på dager-på-rad. Hele arkivet er gratis i lanseringsperioden.</p>
 <ul class="dagsliste">${days.map((n) => `<li><a href="/?dag=${n}">Tidsbilde #${n}</a><span class="liten">${dateNo(dateOf(n))}</span><span class="ok" data-dag="${n}"></span></li>`).join('') || '<li>Arkivet fylles opp fra og med i morgen.</li>'}</ul>
 <script>document.querySelectorAll('[data-dag]').forEach(function(e){try{var s=JSON.parse(localStorage.getItem('tb:dag:'+e.dataset.dag)||'null');if(s&&s.guesses&&s.guesses.length>=5){var t=s.guesses.reduce(function(a,g){return a+g.yp+g.pp},0);e.textContent='✓ '+t.toLocaleString('nb-NO')+' poeng'}}catch(x){}})</script>
 </main>`,
