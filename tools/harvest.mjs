@@ -1,10 +1,10 @@
-﻿// Samler kandidatbilder fra Wikimedia Commons: Â«Category:{Ã¥r} in NorwayÂ» og underkategorier.
+// Samler kandidatbilder fra Wikimedia Commons: Â«Category:{Ã¥r} in NorwayÂ» og underkategorier.
 // Bruk: node tools/harvest.mjs 1860 2005  â†’ data/candidates/{Ã¥r}.json
 import { mkdir, writeFile, access } from 'node:fs/promises';
 import path from 'node:path';
 
 const API = 'https://commons.wikimedia.org/w/api.php';
-const UA = 'TidsbildeHarvester/0.1 (non-commercial Norwegian history photo game)';
+const UA = 'TidsbildeBot/0.2 (https://tidsbilde.no/om/)';
 const OUT = path.resolve('data/candidates');
 const [fromY = 1860, toY = 2005] = process.argv.slice(2).map(Number);
 const OK_LICENSE = /(public domain|pdm|cc0|^cc by(-sa)? [0-9.]+|^cc by(-sa)?$|no restrictions|attribution)/i;

@@ -18,7 +18,7 @@ Alle kandidater har allerede fri lisens (offentlig eie, CC0, CC BY, CC BY-SA). I
 ## Slik ser du på bildene
 Bruk **PowerShell** til nedlasting (Bash-sandkassen når ikke nettet). Lag en egen mappe i din scratchpad, og last ned små versjoner ved å bytte `1400px-` med `400px-` i `thumb`-URL-en:
 ```powershell
-Invoke-WebRequest -Uri $url -OutFile $fil -UseBasicParsing -Headers @{ 'User-Agent' = 'TidsbildeHarvester/0.1 (non-commercial Norwegian history photo game)' }
+Invoke-WebRequest -Uri $url -OutFile $fil -UseBasicParsing -Headers @{ 'User-Agent' = 'TidsbildeBot/0.2 (https://tidsbilde.no/om/)' }
 ```
 Se på bildet med Read-verktøyet. Filtrer først på metadata (sted + år i beskrivelsen), og se bare på de lovende. Vent ca. 0,3 sek mellom nedlastinger.
 

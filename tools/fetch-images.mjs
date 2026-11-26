@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import { createHash } from 'node:crypto';
 import { slugify } from './slug.mjs';
 
-const UA = 'TidsbildeHarvester/0.1 (non-commercial Norwegian history photo game)';
+const UA = 'TidsbildeBot/0.2 (https://tidsbilde.no/om/)';
 const exists = (p) => access(p).then(() => true, () => false);
 await mkdir('data/img/t', { recursive: true });
 
